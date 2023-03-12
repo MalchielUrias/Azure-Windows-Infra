@@ -30,15 +30,15 @@ locals {
   location = "North Europe"
 }
 
-# Datablock: To get information about an existing resource on the Azure platform
-data "azurerm_client_config" "current" {}
-
 # Create Resource Group
 resource "azurerm_resource_group" "application_grp" {
   name     = local.resource_group
   location = local.location
 }
 
+# Datablock: To get information about an existing resource on the Azure platform
+data "azurerm_client_config" "current" {}
+ 
 # Create a Virtual Network
 resource "azurerm_virtual_network" "app_network" {
   name                = "app_network"
@@ -347,6 +347,7 @@ resource "azurerm_public_ip" "lb_ip" {
   location            = local.location
   resource_group_name = local.resource_group
   allocation_method   = "Static"
+  sku = "Standard"
 }
 
 # Create LB
@@ -555,8 +556,8 @@ resource "azurerm_consumption_budget_resource_group" "monthly_budget" {
   time_grain = "Monthly"
 
   time_period {
-    start_date = "2022-06-01T00:00:00Z"
-    end_date   = "2022-07-01T00:00:00Z"
+    start_date = "2023-03-01T00:00:00Z"
+    end_date   = "2023-04-01T00:00:00Z"   
   }
 
   notification {
